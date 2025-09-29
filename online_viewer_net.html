@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tuhin Ahmed - Diet Plan</title>
+    <style>
+        :root {
+            --primary: #2c7fb8;
+            --secondary: #7fcdbb;
+            --accent: #edf8b1;
+            --light: #f7f7f7;
+            --dark: #253237;
+            --danger: #e74c3c;
+            --success: #2ecc71;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 30px 0;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .patient-info {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .patient-info h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .patient-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .detail-item {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px 15px;
+            border-radius: 8px;
+            backdrop-filter: blur(5px);
+        }
+        
+        .bmi-status {
+            background: white;
+            color: var(--dark);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            flex: 0 0 280px;
+            margin-left: 20px;
+        }
+        
+        .bmi-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            text-align: center;
+            margin: 10px 0;
+        }
+        
+        .bmi-category {
+            text-align: center;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 20px;
+            background-color: #ffc107;
+            color: var(--dark);
+            display: inline-block;
+            margin: 0 auto;
+        }
+        
+        .section {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        .section-title {
+            color: var(--primary);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent);
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-title i {
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+        
+        .diet-plan {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .meal-card {
+            background: var(--light);
+            border-radius: 10px;
+            padding: 20px;
+            transition: transform 0.3s ease;
+            border-left: 4px solid var(--secondary);
+        }
+        
+        .meal-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .meal-time {
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .meal-time i {
+            margin-right: 8px;
+        }
+        
+        .meal-items {
+            list-style-type: none;
+        }
+        
+        .meal-items li {
+            padding: 8px 0;
+            border-bottom: 1px dashed #ddd;
+            display: flex;
+            align-items: center;
+        }
+        
+        .meal-items li:last-child {
+            border-bottom: none;
+        }
+        
+        .meal-items li i {
+            color: var(--success);
+            margin-right: 10px;
+        }
+        
+        .advice-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+        }
+        
+        .advice-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 10px;
+            background: var(--light);
+            border-radius: 8px;
+        }
+        
+        .advice-item i {
+            color: var(--success);
+            margin-right: 10px;
+            margin-top: 3px;
+        }
+        
+        .food-restrictions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        
+        .restriction-category {
+            background: var(--light);
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        .restriction-category h4 {
+            color: var(--danger);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .restriction-category h4 i {
+            margin-right: 8px;
+        }
+        
+        .restriction-items {
+            list-style-type: none;
+        }
+        
+        .restriction-items li {
+            padding: 5px 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .restriction-items li i {
+            color: var(--danger);
+            margin-right: 8px;
+            font-size: 0.9rem;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+            color: var(--dark);
+            font-size: 0.9rem;
+            border-top: 1px solid #ddd;
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+            }
+            
+            .bmi-status {
+                margin-left: 0;
+                margin-top: 20px;
+                width: 100%;
+            }
+            
+            .patient-info h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="patient-info">
+                    <h1>Tuhin Ahmed - Diet Plan</h1>
+                    <div class="patient-details">
+                        <div class="detail-item">
+                            <strong>Gender:</strong> Male
+                        </div>
+                        <div class="detail-item">
+                            <strong>Age:</strong> 24 years 1 month
+                        </div>
+                        <div class="detail-item">
+                            <strong>Height:</strong> 5'11"
+                        </div>
+                        <div class="detail-item">
+                            <strong>Weight:</strong> 86 kg
+                        </div>
+                    </div>
+                </div>
+                <div class="bmi-status">
+                    <h3>BMI Status</h3>
+                    <div class="bmi-value">26.5 kg/m²</div>
+                    <div class="bmi-category">Overweight</div>
+                    <p style="text-align: center; margin-top: 10px;">Expected Weight: 65-81 kg</p>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <section class="section">
+            <h2 class="section-title">
+                <i class="fas fa-utensils"></i> Daily Diet Plan
+            </h2>
+            <div class="diet-plan">
+                <div class="meal-card">
+                    <div class="meal-time">
+                        <i class="fas fa-sun"></i> Breakfast (8:00 - 8:30)
+                    </div>
+                    <ul class="meal-items">
+                        <li><i class="fas fa-check-circle"></i> লাল আটার রুটি - ২টা (৬০ গ্রাম)</li>
+                        <li><i class="fas fa-check-circle"></i> ডিম - ১ টা (সিদ্ধ)</li>
+                        <li><i class="fas fa-check-circle"></i> সবজি - ১ কাপ</li>
+                    </ul>
+                </div>
+                
+                <div class="meal-card">
+                    <div class="meal-time">
+                        <i class="fas fa-coffee"></i> Mid-Morning (11:00 - 11:30)
+                    </div>
+                    <ul class="meal-items">
+                        <li><i class="fas fa-check-circle"></i> টকফল (পেয়ারা, সবুজ আপেল, আমড়া, আমলকি, জাম্বুরা, নাশপতি)</li>
+                        <li><i class="fas fa-check-circle"></i> অথবা শশা</li>
+                    </ul>
+                </div>
+                
+                <div class="meal-card">
+                    <div class="meal-time">
+                        <i class="fas fa-sun"></i> Lunch (2:00 - 2:30)
+                    </div>
+                    <ul class="meal-items">
+                        <li><i class="fas fa-check-circle"></i> ভাত - ২ কাপ (২৪০ গ্রাম)</li>
+                        <li><i class="fas fa-check-circle"></i> মাছ/ মুরগী - ২ পিস (৬০ গ্রাম)</li>
+                        <li><i class="fas fa-check-circle"></i> শাক ও সবজি - ১ ১/২ কাপ</li>
+                        <li><i class="fas fa-check-circle"></i> ডাল - ১ কাপ (পাতলা)</li>
+                        <li><i class="fas fa-check-circle"></i> সালাদ ও লেবু</li>
+                    </ul>
+                </div>
+                
+                <div class="meal-card">
+                    <div class="meal-time">
+                        <i class="fas fa-cloud-sun"></i> Evening (5:30 - 6:00)
+                    </div>
+                    <ul class="meal-items">
+                        <li><i class="fas fa-check-circle"></i> ছোলা ১/২ কাপ + সালাদ</li>
+                        <li><i class="fas fa-check-circle"></i> কাঠবাদাম (৬-৭) টা / ডিমের সাদা অংশ ফল</li>
+                    </ul>
+                </div>
+                
+                <div class="meal-card">
+                    <div class="meal-time">
+                        <i class="fas fa-moon"></i> Dinner (8:30 - 9:00)
+                    </div>
+                    <ul class="meal-items">
+                        <li><i class="fas fa-check-circle"></i> লাল আটার রুটি - ২টা</li>
+                        <li><i class="fas fa-check-circle"></i> মাছ/মুরগি - ২ পিস</li>
+                        <li><i class="fas fa-check-circle"></i> ডাল ১ কাপ</li>
+                        <li><i class="fas fa-check-circle"></i> সালাদ, লেবু</li>
+                    </ul>
+                </div>
+                
+                <div class="meal-card">
+                    <div class="meal-time">
+                        <i class="fas fa-bed"></i> Before Bed (ঘুমানোর আগে)
+                    </div>
+                    <ul class="meal-items">
+                        <li><i class="fas fa-check-circle"></i> ছোলা ১/২ কাপ</li>
+                        <li><i class="fas fa-check-circle"></i> ডিমের সাদা অংশ ১টা</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div style="margin-top: 25px; display: flex; flex-wrap: wrap; gap: 20px;">
+                <div style="flex: 1; min-width: 200px;">
+                    <h4><i class="fas fa-oil-can"></i> Cooking Oil</h4>
+                    <p>২০ মিলি</p>
+                </div>
+                <div style="flex: 1; min-width: 200px;">
+                    <h4><i class="fas fa-tint"></i> Water</h4>
+                    <p>২-২.৫ লিটার দিন</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2 class="section-title">
+                <i class="fas fa-running"></i> Exercise & Lifestyle Advice
+            </h2>
+            <div class="advice-list">
+                <div class="advice-item">
+                    <i class="fas fa-walking"></i>
+                    <div>প্রতিদিন (৪০-৪৫) মিনিট হাঁটা/ব্যায়াম করবেন</div>
+                </div>
+                <div class="advice-item">
+                    <i class="fas fa-bed"></i>
+                    <div>প্রতিদিন কমপক্ষে (৬-৭) ঘন্টা ঘুমাতে হবে</div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2 class="section-title">
+                <i class="fas fa-ban"></i> Foods to Avoid
+            </h2>
+            <div class="food-restrictions">
+                <div class="restriction-category">
+                    <h4><i class="fas fa-candy-cane"></i> Sugary Foods</h4>
+                    <ul class="restriction-items">
+                        <li><i class="fas fa-times"></i> চিনি</li>
+                        <li><i class="fas fa-times"></i> মধু</li>
+                        <li><i class="fas fa-times"></i> গুড়</li>
+                        <li><i class="fas fa-times"></i> মিস্টি জাতীয় খাবার</li>
+                    </ul>
+                </div>
+                
+                <div class="restriction-category">
+                    <h4><i class="fas fa-hamburger"></i> Fried & Processed Foods</h4>
+                    <ul class="restriction-items">
+                        <li><i class="fas fa-times"></i> ডুবো ভাজা খাবার</li>
+                        <li><i class="fas fa-times"></i> অতিরিক্ত তেল জাতীয় খাবার</li>
+                        <li><i class="fas fa-times"></i> বেকারি খাবার</li>
+                        <li><i class="fas fa-times"></i> প্যাকেটজাত খাবার</li>
+                        <li><i class="fas fa-times"></i> চিন্স, চানাচুর, বিস্কুট</li>
+                    </ul>
+                </div>
+                
+                <div class="restriction-category">
+                    <h4><i class="fas fa-utensil-spoon"></i> Condiments & Fast Food</h4>
+                    <ul class="restriction-items">
+                        <li><i class="fas fa-times"></i> ফাস্ট ফুড</li>
+                        <li><i class="fas fa-times"></i> সস, আচার, চাটনি</li>
+                        <li><i class="fas fa-times"></i> কোল্ড ড্রিংকস</li>
+                        <li><i class="fas fa-times"></i> প্রসেসড খাবার</li>
+                        <li><i class="fas fa-times"></i> ইন্সট্যান্ট নুডুলস</li>
+                        <li><i class="fas fa-times"></i> নুডুলসের মসলা</li>
+                    </ul>
+                </div>
+                
+                <div class="restriction-category">
+                    <h4><i class="fas fa-drumstick-bite"></i> Restricted Meats</h4>
+                    <ul class="restriction-items">
+                        <li><i class="fas fa-times"></i> রেডমিট (গরু-খাসি-হাস- পাখির মাংস)</li>
+                        <li><i class="fas fa-times"></i> চিংড়ি মাছ</li>
+                        <li><i class="fas fa-times"></i> পায়া, নেহারি</li>
+                        <li><i class="fas fa-times"></i> ভুড়ি, কলিজা, মগজ</li>
+                        <li><i class="fas fa-times"></i> মাছের ডিম</li>
+                        <li><i class="fas fa-times"></i> মিষ্টি ফল</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>© 2023 Tuhin Ahmed - Personalized Diet Plan | Designed for Health & Wellness</p>
+        </div>
+    </footer>
+
+    <script>
+        // Simple JavaScript to add interactivity
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add click effect to meal cards
+            const mealCards = document.querySelectorAll('.meal-card');
+            mealCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                });
+            });
+            
+            // Update date in footer
+            const currentYear = new Date().getFullYear();
+            document.querySelector('footer p').innerHTML = `© ${currentYear} Tuhin Ahmed - Personalized Diet Plan | Designed for Health & Wellness`;
+        });
+    </script>
+</body>
+</html>
